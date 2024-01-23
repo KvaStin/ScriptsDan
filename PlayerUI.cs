@@ -7,7 +7,8 @@ using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
-    public Player player;
+    public Health health;
+    public CoinsCounter coin;
     public TextMeshProUGUI coinsText;
     public Slider healthSlider;
    
@@ -20,9 +21,9 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthSlider.maxValue = player.maxHealth;
-        healthSlider.value = player.health;
+        healthSlider.maxValue = health.maxHealth;
+        healthSlider.value = health.health;
         
-        coinsText.text = player.coin.ToString();
+        coinsText.text = coin.coin.ToString();
     }
 }
