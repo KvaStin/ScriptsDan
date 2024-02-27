@@ -1,49 +1,47 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public int health = 10;
+    public static int score = 0;
 
-    public GameObject fireballPrefab;
+    public static List<Square> squares;
 
-    public Transform attackPoint;
-
-    public AudioSource audioSource;
-
-    public AudioClip damageSound;
-
-
+    private void Awake()
+    {
+        squares = new List<Square>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (squares.Count == 0)
         {
-            Instantiate(fireballPrefab,attackPoint.position, attackPoint.rotation);
+            Victory();
         }
     }
-    public void TakeDamage(int damage)
+    public static void Defeat()
     {
-        health -= damage;
-        if (health > 0)
-        {
-            audioSource.PlayOneShot(damageSound);
-            print("Здоровье Игрока" + health);
-        }
-        else
-        {
-            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(sceneIndex);
-        }
-
+        UI.ShowDefeatPanel();
+        score = 0;
     }
+    public static void Victory()
+    {
+        UI.ShowVictoryPanel();
+    }
+    public static void Restart()
+    {
+        int index = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(index);
+    }
+
+
 }
