@@ -1,35 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UI : MonoBehaviour
 {
-    public Text scoreText;
-    static UI singleton;
-    public GameObject panel;
-    public Text panelScoreText;
-    public Text defeatText;
-    public Text victoryText;
+    public Player player;
+    public TextMeshProUGUI text;
+    public GameObject defeatUI;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
-    void Awake()
+    // Update is called once per frame
+    void Update()
     {
-        singleton = this;
-    }
-    public static void ShowVictoryPanel()
-    {
-        singleton.panel.SetActive(true);
-        singleton.victoryText.gameObject.SetActive(true);
-        singleton.panelScoreText.text = Player.score.ToString();
-    }
-    public static void ShowDefeatPanel()
-    {
-        singleton.panel.SetActive(true);
-        singleton.defeatText.gameObject.SetActive(true);
-        singleton.panelScoreText.text = Player.score.ToString();
+        if (player != null)
+        {
+            text.text = player.points.ToString();
+        }
+        else
+        {
+            defeatUI.SetActive(true);
+        }
     }
     public void OnClickRestart()
     {
-        Player.Restart();
+        int index = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(index);
     }
 }
